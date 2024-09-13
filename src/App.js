@@ -5,10 +5,35 @@ import { useState } from 'react';
 function App() {
   let title = 'calculator app'
   const [input, setInput] = useState('')
+  const [result, setResult] = useState('')
+  const [a,setA] = useState(0)
+  const [b,setB] = useState(0)
+  const num= [1,2,3,4,5,6,7,8,9]
+  const oper = ['+','-','*','%']
 
-const one = ()=>{
-  console.log('one')
-  setInput(input+'1')
+const handleNumber = (e)=>{
+  console.log(e.target.innerText)
+  
+  const val = e.target.innerText
+  setInput(input+val)
+}
+
+const handleClear = ()=>{
+  setInput('')
+}
+
+const handleResult = ()=>{
+  const vals = input.split(/[^0-9]+/)
+  console.log(vals)
+  if (input.includes('+')) {
+    const res = Number(vals[0]) + Number(vals[1])
+    setResult(res);
+    
+  } else if (input.includes('-')) {
+    
+    setResult(Number(vals[0]) - Number(vals[1]));
+  }
+  setInput(result)
 }
   
   return (
@@ -18,22 +43,29 @@ const one = ()=>{
         <textarea id='result' value={input} readOnly></textarea>
         <div className='control-area'>
           <ul className='numbers'>
-            <li><button onClick={one}>1</button></li>
-            <li><button>2</button></li>
+            {
+              num.map((e,index)=>(
+<li><button id={index} onClick={handleNumber}>{e}</button></li>
+              ))
+            }
+            
+            {/* <li><button>2</button></li>
             <li><button>3</button></li>
             <li><button>4</button></li>
             <li><button>5</button></li>
             <li><button>6</button></li>
             <li><button>7</button></li>
             <li><button>8</button></li>
-            <li><button>9</button></li>
+            <li><button>9</button></li> */}
             </ul>
             <ul className='operators'>
-            <li><button>Add +</button></li>
-            <li><button>sub -</button></li>
-            <li><button>mul *</button></li>
-            <li><button>div %</button></li>
-            <li><button>result</button></li>
+            {
+              oper.map((e,index)=>(
+                <li><button id={index} onClick={handleNumber}>{e}</button></li>
+              ))
+            }
+            <li><button onClick={handleResult}>result</button></li>
+            <li><button onClick={handleClear}>clear</button></li>
           </ul>
 
         </div>
