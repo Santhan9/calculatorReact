@@ -5,11 +5,8 @@ import { useState } from 'react';
 function App() {
   let title = 'calculator app'
   const [input, setInput] = useState('')
-  const [result, setResult] = useState('')
-  const [a,setA] = useState(0)
-  const [b,setB] = useState(0)
   const num= [1,2,3,4,5,6,7,8,9]
-  const oper = ['+','-','*','%']
+  const oper = ['+','-','*','/']
 
 const handleNumber = (e)=>{
   console.log(e.target.innerText)
@@ -27,13 +24,18 @@ const handleResult = ()=>{
   console.log(vals)
   if (input.includes('+')) {
     const res = Number(vals[0]) + Number(vals[1])
-    setResult(res);
+    console.log('result '+res)
+    setInput(res);
     
   } else if (input.includes('-')) {
     
-    setResult(Number(vals[0]) - Number(vals[1]));
+    setInput(Number(vals[0]) - Number(vals[1]));
+  }else if(input.includes('*')){
+    setInput(Number(vals[0]) * Number(vals[1]))
+  }else if(input.includes('/')){
+    setInput(Number(vals[0]) / Number(vals[1]))
   }
-  setInput(result)
+  
 }
   
   return (
